@@ -179,7 +179,7 @@ AUTH_LDAP_USER_FLAGS_BY_GROUP = {
     #'is_staff': 'Group DN',
     #'is_superuser': 'Group DN',
     # Example of multiple group
-    """'is_approver': (
+    """'is_staff': (
         LDAPGroupQuery('Group DN') |
         LDAPGroupQuery('Group DN')
     )"""
