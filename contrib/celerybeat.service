@@ -1,0 +1,18 @@
+[Unit]
+Description=APP Celery Beat Service
+After=network.target rh-redis5-redis.service app.service
+Requires=rh-redis5-redis.service app.service
+
+[Service]
+Type=simple
+User=username
+Group=group_name
+
+EnvironmentFile=/apps/services/app/celeryd
+WorkingDirectory=/apps/PROD/app
+ExecStart=/bin/sh -c '${CELERY_BIN} -A ${CELERY_APP} beat --pidfile=${CELERYBEAT_PID_FILE} --logfile=${CELERYBEAT_LOG_FILE} --loglevel=${CELERYD_LOG_LEVEL} ${CELERYBEAT_OPTS}'
+Restart=always
+RemainAfterExit=yes
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target

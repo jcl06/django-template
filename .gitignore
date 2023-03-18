@@ -1,0 +1,54 @@
+# Django #
+logs/
+*.log
+*.pot
+*.pyc
+__pycache__
+*.sqlite3
+media/
+
+
+# Backup files #
+*.bak
+
+# Python #
+*.py[cod]
+*$py.class
+
+# Environments #
+.venv/
+venv/
+
+# Visual Studio Code #
+.vscode
+
+# Environment variable settings
+.env
+
+# Pipfile
+Pipfile.lock
+
+# Pycharm settings #
+.idea/
+
+# Misc Files #
+index - Copy.html
+
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+**/getpass.py
+getpass.py
+**/test.py
+test.py
+configs/cred.py
+configs/cred.sh
+configs/configuration.py
+
+
+staticfiles/
+../contrib/gunicorn.py
+output.txt
+sqlite/
+
+

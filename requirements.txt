@@ -1,0 +1,17 @@
+Django
+requests
+redis
+hiredis
+celery
+django-redis
+gunicorn
+cryptography
+whitenoise
+pymysql
+gevent
+django-import-export
+djangorestframework
+django_user_agents
+django-celery-beat
+python-ldap
+django-auth-ldap

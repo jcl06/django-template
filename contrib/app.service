@@ -1,0 +1,16 @@
+[Unit]
+Description=APP Service
+After=network.target rh-redis5-redis.service
+Requires=rh-redis5-redis.service app_celery.service app_celerybeat.service
+
+[Service]
+Type=simple
+User=username
+Group=group_name
+ExecStart="/apps/services/app/start_app.sh" start
+ExecStop="/apps/services/app/start_app.sh" stop
+RemainAfterExit=yes
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
+
+        <!-- Custom styles for this template -->
+        <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+        <script src="{% static 'vendor/fontawesome/js/all.min.js' %}"></script>
+
+        <link href="{% static 'vendor/datatables/css/dataTables.bootstrap5.min.css' %}" rel="stylesheet">
+
+        {% block title %}<title>{{ title }}</title>{% endblock %}
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <p class="navbar-brand ps-3">{{ title }}</p>
+            <div class="navbar-text d-none d-md-inline-block form-inline ms-auto me-0 me-md-0 my-2 my-md-0">
+                Logged in as: {{ user.full_name }}
+            </div>
+            <ul class="navbar-nav ms-auto ms-md-0 me-1 me-lg-1">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        {% if request.user.is_staff %}
+                        <li><a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">Settings</a></li>
+                        {% endif %}
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div>
+            {% block drawer-content %}{% endblock %}
+        </div>
+
+
+         <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin.js' %}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/js/dataTables.bootstrap5.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'js/multiselect.min.js' %}"></script>
+    <!--<link rel="stylesheet" href="/static/css/loader.css"/>-->
+
+
+    {% block script %}{% endblock %}
+    </body>
+</html>
