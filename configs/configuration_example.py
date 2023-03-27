@@ -185,6 +185,7 @@ AUTH_LDAP_USER_FLAGS_BY_GROUP = {
     )"""
 }
 
+#LDAP_ROOT_DN = "dc=abc,dc=domain,dc=com"
 
 # The name to use for the csrf token cookie.
 CSRF_COOKIE_NAME = 'csrftoken'

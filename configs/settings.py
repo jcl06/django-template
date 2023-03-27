@@ -55,6 +55,11 @@ except ModuleNotFoundError as e:
 for parameter in ['ALLOWED_HOSTS', 'SECRET_KEY', 'URL_PATH', 'SECRET_KEY_GENERATED']:
     if not hasattr(configuration, parameter):
         raise ImproperlyConfigured(f"Required parameter {parameter} is missing from configuration.")
+    else:
+        if isinstance(getattr(configuration, parameter), bool):
+            continue
+        if not getattr(configuration, parameter):
+            raise ImproperlyConfigured(f"{parameter} is empty.")
 
 # Set required parameters
 SECRET_KEY_GENERATED = getattr(configuration, 'SECRET_KEY_GENERATED')
@@ -76,9 +81,24 @@ PROJECT_NAME = getattr(configuration, 'PROJECT_NAME', 'Django Template')
 DATABASE = getattr(configuration, 'DATABASE', {'ENGINE': 'django.db.backends.sqlite3', 'NAME': f'{BASE_DIR}/db.sqlite3',})
 
 REMOTE_AUTH_BACKEND = getattr(configuration, 'REMOTE_AUTH_BACKEND', None)
+if REMOTE_AUTH_BACKEND:
+    LDAP_ENABLED = True
+    # Enforce required LDAP configuration parameters
+    for parameter in ['LDAP_ADDRESS', 'LDAP_USER', 'LDAP_PASS', 'LDAP_ROOT_DN', 'AUTH_LDAP_REQUIRE_GROUP']:
+        if not hasattr(configuration, parameter):
+            raise ImproperlyConfigured(f"Required parameter {parameter} is missing from configuration.")
+        else:
+            if isinstance(getattr(configuration, parameter), bool):
+                continue
+            if not getattr(configuration, parameter):
+                raise ImproperlyConfigured(f"{parameter} is empty.")
+else:
+    LDAP_ENABLED = False
+
 LDAP_ADDRESS = getattr(configuration, 'LDAP_ADDRESS', '')
 LDAP_USER = getattr(configuration, 'LDAP_USER', '')
 LDAP_PASS = getattr(configuration, 'LDAP_PASS', '')
+LDAP_ROOT_DN = getattr(configuration, 'LDAP_ROOT_DN', '')
 AUTH_LDAP_REQUIRE_GROUP = getattr(configuration, 'AUTH_LDAP_REQUIRE_GROUP', '')
 AUTH_LDAP_MIRROR_GROUPS = getattr(configuration, 'AUTH_LDAP_MIRROR_GROUPS', [])
 AUTH_LDAP_USER_FLAGS_BY_GROUP = getattr(configuration, 'AUTH_LDAP_USER_FLAGS_BY_GROUP', {})
@@ -105,6 +125,13 @@ TIME_ZONE = getattr(configuration, 'TIME_ZONE', 'UTC')
 
 DEBUG = getattr(configuration, 'DEBUG', False)
 LOGGING = getattr(configuration, 'LOGGING', {})
+
+LOG_DIR = getattr(configuration, 'LOG_DIR', BASE_DIR)
+if LOG_DIR:
+    if not os.path.exists(LOG_DIR):
+        # if the demo_folder directory is not present
+        # then create it.
+        os.makedirs(LOG_DIR)
 
 CELERY_DEFAULT_QUEUE = getattr(configuration, 'CELERY_DEFAULT_QUEUE', '{0}_default'.format(PROJECT_NAME))
 CLRY_QUEUES = getattr(configuration, 'CELERY_QUEUES', ())
