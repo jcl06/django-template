@@ -14,6 +14,7 @@ def decrypt(data):
 
 def get_encryption_key():
     if os.name == 'nt':
+        # data = subprocess.check_output('hostname').decode().split('\n')[0].strip() 
         data = subprocess.check_output('wmic csproduct get uuid').decode().split('\n')[1].strip()
     else:
         with open("/etc/machine-id", 'rb') as f:
