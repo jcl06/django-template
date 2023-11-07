@@ -33,7 +33,7 @@
             </div>
             <form method="POST">
                 {% csrf_token %}
-                <div class="form-group">
+                <div class="form-login">
                     <input type="hidden" name="next" value="{{ request.GET.next }}">
                     <input type="text" class="form-control" placeholder="Username" name="username" required>
                     <input type="password" class="form-control"  placeholder="Password" name="password" required>
